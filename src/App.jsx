@@ -48,7 +48,7 @@ function App() {
                     <h1>{joke.setup}</h1>
                     {display === true ?  <div>{joke.delivery}</div> : <Button onClick={showDeliveryOfJoke}>Show the joke!</Button>}
                 </>
-                : null}
+                : <h2>Joke could not be displayed. Please try again.</h2>}
             <div>
                 <Button onClick={getJoke}>Get Joke!</Button>
             </div>
