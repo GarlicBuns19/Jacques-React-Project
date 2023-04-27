@@ -1,12 +1,14 @@
 import {useEffect, useState} from "react";
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import './App.css';
+import './styles/custom.css';
 import Button from "./components/Button.jsx";
 function App() {
 
     const [loading, setLoading] = useState(false);
     const [joke, setJoke] = useState({});
+    const [display, setDisplay] = useState(false);
     const getJoke = async () => {
 
         setLoading(true)
@@ -19,8 +21,13 @@ function App() {
             })
             .finally(() => {
                 setLoading(false)
+                setDisplay(false)
             });
     };
+
+    const showDeliveryOfJoke = () => {
+        setDisplay(true)
+    }
 
     useEffect(() => {
         getJoke();
@@ -39,10 +46,12 @@ function App() {
             {Object.keys(joke).length > 0 ?
                 <>
                     <h1>{joke.setup}</h1>
-                    <div>{joke.delivery}</div>
+                    {display === true ?  <div>{joke.delivery}</div> : <Button onClick={showDeliveryOfJoke}>Show the joke!</Button>}
                 </>
                 : null}
-            <Button onClick={getJoke}>Get Joke!</Button>
+            <div>
+                <Button onClick={getJoke}>Get Joke!</Button>
+            </div>
         </div>
     )
 }
