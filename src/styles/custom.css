@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@500&display=swap');
+
 .wrapper {
     margin: auto;
     padding: 10px 0;
+    font-family: 'Noto Sans', sans-serif;
     width: 900px;
     height: 200px;
     background-color: #2c3959;
