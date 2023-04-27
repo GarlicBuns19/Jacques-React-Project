@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 export default styled.button`
-  padding: 20px;
-  background: aqua;
-  color: black;
+  margin: 10px 0 0;
+  padding: 10px;
+  background: transparent;
+  border-radius: 10px;
+  border: 3px solid #efefef;
 `;

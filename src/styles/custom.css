@@ -1,6 +1,9 @@
 .wrapper {
-    background-color: blue;
-    color: pink;
-    width: 900px;
     margin: auto;
+    padding: 10px 0;
+    width: 900px;
+    height: 200px;
+    background-color: #2c3959;
+    color: #efefef;
+    border-radius: 20px;
 }

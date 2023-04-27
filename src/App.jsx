@@ -42,8 +42,8 @@ function App() {
                         : <>
                             {Object.keys(joke).length > 0 ?
                                 <>
-                                    <h1>{joke.setup}</h1>
-                                    {display === true ? <div>{joke.delivery}</div> :
+                                    <h2>{joke.setup}</h2>
+                                    {display === true ? <div><h3>{joke.delivery}</h3></div> :
                                         <Button onClick={showDeliveryOfJoke}>Show the joke!</Button>}
                                 </>
                                 : <h2>Joke could not be displayed. Please try again.</h2>}
