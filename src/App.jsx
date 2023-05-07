@@ -37,14 +37,15 @@ function App() {
 
     return (
         <div className={'wrapper'}>
-            <label htmlFor="jokeType">Choose Joke Type</label><br></br>
-
-            <select name="jokeType" id="jokeType" value={jokeOption} onChange={(e) => setJokeOption(e.target.value)}>
-                <option value="Programming">Programming</option>
-                <option value="Dark">Dark</option>
-                <option value="Miscellaneous">Miscellaneous</option>
-                <option value="Christmas">Christmas</option>
-            </select>
+            <div>
+                <label htmlFor="jokeType">Choose Joke Type</label><br></br>
+                <select name="jokeType" id="jokeType" value={jokeOption} onChange={(e) => setJokeOption(e.target.value)}>
+                    <option value="Programming">Programming</option>
+                    <option value="Dark">Dark</option>
+                    <option value="Miscellaneous">Miscellaneous</option>
+                    <option value="Christmas">Christmas</option>
+                </select>
+            </div>
 
             {loading ? <div>Loading Joke</div> :
                 joke.error ?
@@ -56,7 +57,8 @@ function App() {
                         {Object.keys(joke).length > 0 ?
                             <>
                                 <h2>{joke.setup}</h2>
-                                {jokeDisplay ? <div><h3>{joke.delivery}</h3></div> :
+                                {jokeDisplay ?
+                                    <div><h3>{joke.delivery}</h3></div> :
                                     <Button onClick={() => setJokeDisplay(true)}>Show the joke!</Button>}
                             </>
                             :
