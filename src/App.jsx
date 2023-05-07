@@ -1,21 +1,21 @@
 import {useEffect, useState} from "react";
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import './App.css';
 import './styles/custom.css';
-import {Button, DangerButton} from "./components/Button.jsx";
+import {Button} from "./components/Button.jsx";
 
 function App() {
 
     const [loading, setLoading] = useState(false);
     const [joke, setJoke] = useState({});
-    const [display, setDisplay] = useState(false);
-    const [option, setOption] = useState('Programming');
+    const [jokeDisplay, setJokeDisplay] = useState(false);
+    const [jokeOption, setJokeOption] = useState('Programming');
     const getJoke = async () => {
-
         setLoading(true)
+        setJokeDisplay(false)
 
-        await fetch(`https://v2.jokeapi.dev/joke/${option}?blacklistFlags=nsfw,religious,political,racist,sexist&type=twopart`)
+        await fetch(`https://v2.jokeapi.dev/joke/${jokeOption}?blacklistFlags=nsfw,religious,political,racist,sexist&type=twopart`)
             .then(res => res.json())
             .then(data => setJoke(data))
             .catch(e => {
@@ -23,53 +23,50 @@ function App() {
             })
             .finally(() => {
                 setLoading(false)
-                setDisplay(false)
             });
     };
-
-    const showDeliveryOfJoke = () => {
-        setDisplay(true)
-    }
-
-    const changeJokeType = () => {
-        setOption(document.getElementById('jokeType').value);
-    }
 
     useEffect(() => {
         getJoke();
     }, []);
 
+    // If user selects different joke option via select id = jokeType
+    useEffect(() => {
+        getJoke();
+    }, [jokeOption]);
+
     return (
-        <>
-            <div className={'wrapper'}>
-                <label htmlFor="jokeType">Choose Joke Type</label><br></br>
+        <div className={'wrapper'}>
+            <label htmlFor="jokeType">Choose Joke Type</label><br></br>
 
-                <select name="jokeType" id="jokeType" onChange={changeJokeType}>
-                    <option value="Programming">Programming</option>
-                    <option value="Dark">Dark</option>
-                    <option value="Miscellaneous">Miscellaneous</option>
-                    <option value="Christmas">Christmas</option>
-                </select>
+            <select name="jokeType" id="jokeType" value={jokeOption} onChange={(e) => setJokeOption(e.target.value)}>
+                <option value="Programming">Programming</option>
+                <option value="Dark">Dark</option>
+                <option value="Miscellaneous">Miscellaneous</option>
+                <option value="Christmas">Christmas</option>
+            </select>
 
-                {loading === true ? <div>Loading Joke</div> :
-                    joke.error === true ? <>
-                            <h2>Joke could not be displayed. Please try again.</h2>
-                            <div><Button onClick={getJoke}>Get Joke!</Button></div>
-                        </>
-                        : <>
-                            {Object.keys(joke).length > 0 ?
-                                <>
-                                    <h2>{joke.setup}</h2>
-                                    {display === true ? <div><h3>{joke.delivery}</h3></div> : <Button onClick={showDeliveryOfJoke}>Show the joke!</Button>}
-                                </>
-                                : <h2>Joke could not be displayed. Please try again.</h2>}
-                            <div>
-                                <Button onClick={getJoke}>Get Joke!</Button>
-                            </div>
-                        </>
-                }
-            </div>
-        </>
+            {loading ? <div>Loading Joke</div> :
+                joke.error ?
+                    <>
+                        <h2>Joke could not be displayed. Please try again.</h2>
+                        <div><Button onClick={getJoke}>Try to get a joke again!</Button></div>
+                    </>
+                    : <>
+                        {Object.keys(joke).length > 0 ?
+                            <>
+                                <h2>{joke.setup}</h2>
+                                {jokeDisplay ? <div><h3>{joke.delivery}</h3></div> :
+                                    <Button onClick={() => setJokeDisplay(true)}>Show the joke!</Button>}
+                            </>
+                            :
+                            <h2>Joke could not be displayed. Please try again.</h2>}
+                        <div>
+                            <Button onClick={getJoke}>Get Joke!</Button>
+                        </div>
+                    </>
+            }
+        </div>
     )
 }
 
