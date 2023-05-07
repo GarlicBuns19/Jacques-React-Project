@@ -2,8 +2,9 @@ import {useEffect, useState} from "react";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css';
-import './styles/custom.css';
+// import './styles/custom.css';
 import {Button} from "./components/Button.jsx";
+import InputWrapper from "./components/InputWrapper.jsx";
 
 function App() {
 
@@ -36,8 +37,8 @@ function App() {
     }, [jokeOption]);
 
     return (
-        <div className={'wrapper'}>
-            <div>
+        <div className={"container p-4"}>
+            <InputWrapper>
                 <label htmlFor="jokeType">Choose Joke Type</label><br></br>
                 <select name="jokeType" id="jokeType" value={jokeOption} onChange={(e) => setJokeOption(e.target.value)}>
                     <option value="Programming">Programming</option>
@@ -45,7 +46,7 @@ function App() {
                     <option value="Miscellaneous">Miscellaneous</option>
                     <option value="Christmas">Christmas</option>
                 </select>
-            </div>
+            </InputWrapper>
 
             {loading ? <div>Loading Joke</div> :
                 joke.error ?
