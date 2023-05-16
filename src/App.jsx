@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 // import viteLogo from '/vite.svg'
 import './App.css';
 // import './styles/custom.css';
-import {Button} from "./components/Button.jsx";
+import {Button, HoverBtn} from "./components/Button.jsx";
 import InputWrapper from "./components/InputWrapper.jsx";
 
 function App() {
@@ -37,39 +37,43 @@ function App() {
     }, [jokeOption]);
 
     return (
-        <div className={"container bg-slate-900 min-h-screen text-white mx-auto p-4"}>
-            <InputWrapper>
-                <label htmlFor="jokeType">Choose Joke Type</label>
-                <select name="jokeType" id="jokeType" className={"bg-slate-900"} value={jokeOption}
-                        onChange={(e) => setJokeOption(e.target.value)}>
-                    <option value="Programming">Programming</option>
-                    <option value="Dark">Dark</option>
-                    <option value="Miscellaneous">Miscellaneous</option>
-                    <option value="Christmas">Christmas</option>
-                </select>
-            </InputWrapper>
+        <div className={"grid place-content-center bg-slate-900 min-h-screen text-white"}>
+            <div className={"w-96"}>
+                <InputWrapper>
+                    <label htmlFor="jokeType">Choose Joke Type</label>
+                    <select name="jokeType" id="jokeType" className={"w-80 bg-slate-900"} value={jokeOption}
+                            onChange={(e) => setJokeOption(e.target.value)}>
+                        <option value="Programming">Programming</option>
+                        <option value="Dark">Dark</option>
+                        <option value="Miscellaneous">Miscellaneous</option>
+                        <option value="Christmas">Christmas</option>
+                    </select>
+                </InputWrapper>
 
-            {loading ? <div>Loading Joke</div> :
-                joke.error ?
-                    <div>
-                        <h2>Joke could not be displayed. Please try again.</h2>
-                        <div><Button onClick={getJoke}>Try to get a joke again!</Button></div>
-                    </div>
-                    : <div>
-                        {Object.keys(joke).length > 0 ?
-                            <>
-                                <h2 className={"text-lg"}>{joke.setup}</h2>
-                                {jokeDisplay ?
-                                    <div><h3 className={"text-xl text-sky-400"}>{joke.delivery}</h3></div> :
-                                    <Button className={"hover:bg-slate-800 ease-in duration-300"} onClick={() => setJokeDisplay(true)}>Show the joke!</Button>}
-                            </>
-                            :
-                            <h2>Joke could not be displayed. Please try again.</h2>}
+                {loading ? <div>Loading Joke</div> :
+                    joke.error ?
                         <div>
-                            <Button className={"hover:bg-slate-800 ease-in duration-300"} onClick={getJoke}>Get Joke!</Button>
+                            <h2>Joke could not be displayed. Please try again.</h2>
+                            <div><HoverBtn onClick={getJoke}>Try to get a joke again!</HoverBtn></div>
                         </div>
-                    </div>
-            }
+                        : <div>
+                            {Object.keys(joke).length > 0 ?
+                                <>
+                                    <h2 className={"text-lg py-2"}>{joke.setup}</h2>
+                                    {jokeDisplay ?
+                                        <div><h3 className={"text-xl text-sky-400 py-2"}>{joke.delivery}</h3></div> :
+                                        // <Button className={"hover:bg-slate-800 ease-in duration-300"}
+                                        //         onClick={() => setJokeDisplay(true)}>Show the joke!</Button>}
+                                    <HoverBtn onClick={() => setJokeDisplay(true)}>Show the joke!</HoverBtn>}
+                                </>
+                                :
+                                <h2>Joke could not be displayed. Please try again.</h2>}
+                            <div>
+                                <HoverBtn onClick={getJoke}>Get Joke!</HoverBtn>
+                            </div>
+                        </div>
+                }
+            </div>
         </div>
     )
 }

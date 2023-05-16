@@ -14,3 +14,12 @@ export const DangerButton = styled.button`
   color: white;
   border-radius: 10px;
 `;
+
+export function HoverBtn(props) {
+    return (
+        <button className={"mt-2 p-2 w-40 bg-transparent border-2 border-stone-200 rounded-lg hover:bg-slate-800 ease-in duration-300"}
+                onClick={props.onClick}>
+            {props.children}
+        </button>
+    )
+}
